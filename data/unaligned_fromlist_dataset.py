@@ -5,12 +5,16 @@ from PIL import Image
 import random
 
 
-class UnalignedDataset(BaseDataset):
+class UnalignedFromlistDataset(BaseDataset):
+    @staticmethod
+    def modify_commandline_options(parser, is_train):
+        return parser
+
     def initialize(self, opt):
         self.opt = opt
         self.root = opt.dataroot
 
-        # rui add start
+       # rui add start
 
         self.list_A = os.path.join(opt.img_list_root, opt.img_list_A)
         self.list_B = os.path.join(opt.img_list_root, opt.img_list_B)
@@ -34,6 +38,7 @@ class UnalignedDataset(BaseDataset):
         self.B_size = len(self.B_paths)
         self.transform = get_transform(opt)
 
+    # rui add start
     def collect_img_from_list(self, list_tmp):
         images = []
         fin = open(list_tmp)
@@ -41,6 +46,7 @@ class UnalignedDataset(BaseDataset):
         for img in img_list:
             images.append(os.path.join(self.opt.dataroot, img.strip()))
         return images
+    # rui add end
 
     def __getitem__(self, index):
         A_path = self.A_paths[index % self.A_size]
@@ -76,4 +82,4 @@ class UnalignedDataset(BaseDataset):
         return max(self.A_size, self.B_size)
 
     def name(self):
-        return 'UnalignedDataset'
+        return 'UnalignedFromlistDataset'
