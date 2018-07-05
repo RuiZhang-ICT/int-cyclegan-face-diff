@@ -23,6 +23,10 @@ class TrainOptions(BaseOptions):
         parser.add_argument('--no_html', action='store_true', help='do not save intermediate training results to [opt.checkpoints_dir]/[opt.name]/web/')
         parser.add_argument('--lr_policy', type=str, default='lambda', help='learning rate policy: lambda|step|plateau')
         parser.add_argument('--lr_decay_iters', type=int, default=50, help='multiply by a gamma every lr_decay_iters iterations')
-
+        # rui add start
+        parser.add_argument('--img_list_A', type=str, default='img_list_blackhair_mustache.txt', help='file of training dataset A')
+        parser.add_argument('--img_list_B', type=str, default='img_list_blondhair_nobeard.txt', help='file of training dataset B')
+        parser.add_argument('--img_list_root', type=str, default='./datasets/img_list_faces/', help='root of face image list')
+        # rui add end
         self.isTrain = True
         return parser
